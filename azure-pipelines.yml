@@ -32,18 +32,16 @@ steps:
     mavenAuthenticateFeed: false
     effectivePomSkip: false
     sonarQubeRunAnalysis: false
-
-- task: DownloadBuildArtifacts@0
+- task: DownloadPipelineArtifact@2
   inputs:
     buildType: 'current'
-    downloadType: 'specific'
     itemPattern: '**/*war'
-    downloadPath: '$(System.ArtifactsDirectory)'
+    targetPath: '$(Pipeline.Workspace)'
 - task: TomcatDeployment@1
   inputs:
     TomcatUrl: 'http://18.191.211.62:8888'
     Username: 'bajajd'
     Password: 'Bajaj'
-    Warfile: '$(System.ArtifactsDirectory)/**/*war'
+    Warfile: '$(Pipeline.Workspace)/**/*war'
     Context: '/azure'
     ServerVersion: '7OrAbove'
