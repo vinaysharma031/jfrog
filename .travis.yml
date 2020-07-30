@@ -1,10 +1,8 @@
 language: java
-script:
-mvn clean
 deploy:
   provider: s3
-  access_key_id: "AKIAI4AM64V2BFYSMXRQ"
-  secret_access_key: "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"
+  access_key_id: 
+  secret_access_key: 
   bucket: "codeingi"
   skip_cleanup: true
   region: us-east-2
