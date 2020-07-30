@@ -1,7 +1,6 @@
 language: java
 script:
 mvn clean
-mvn clean install
 deploy:
   provider: s3
   access_key_id: "AKIAI4AM64V2BFYSMXRQ"
