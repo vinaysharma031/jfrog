@@ -32,6 +32,7 @@ steps:
     script: |
       sudo apt update && sudo apt upgrade
       sudo apt install curl
+      cd /home/vsts/work/1/s
 - task: TomcatDeployment@1
   inputs:
     TomcatUrl: 'http://18.191.211.62:8888'
