@@ -38,23 +38,11 @@ steps:
     downloadType: 'specific'
     itemPattern: '**/*war'
     downloadPath: '$(System.ArtifactsDirectory)'
-- task: Bash@3
-  inputs:
-    targetType: 'inline'
-    script: |
-      pwd
-      cd
-      mkdir deepak
-- task: CopyFiles@2
-  inputs:
-    SourceFolder: '$(System.ArtifactsDirectory)'
-    Contents: '**/*war'
-    TargetFolder: 'deepak'
 - task: TomcatDeployment@1
   inputs:
     TomcatUrl: 'http://18.191.211.62:8888'
     Username: 'bajajd'
     Password: 'Bajaj'
-    Warfile: 'deepak/**/*war'
+    Warfile: '**/*war'
     Context: '/azure'
     ServerVersion: '7OrAbove'
