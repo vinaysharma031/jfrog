@@ -40,3 +40,13 @@ stages:
         - publish: $(System.DefaultWorkingDirectory)
         - bash: |
              sudo sshpass -p "Bajaj@33" rsync -rvz -e 'ssh -o StrictHostKeyChecking=no -p 22' --progress  $(System.DefaultWorkingDirectory)* dbajaj@18.191.211.62:/home/dbajaj
+             ssh -i "Deepak.pem" dbajaj@ec2-18-191-211-62.us-east-2.compute.amazonaws.com
+             ls
+        - task: TomcatDeployment@1
+          inputs:
+           TomcatUrl: 'http://18.191.211.62:8888'
+           Username: 'bajajd'
+           Password: 'Bajaj'
+           Warfile: '**/*war'
+           Context: '/azure'
+           ServerVersion: '7OrAbove'  
