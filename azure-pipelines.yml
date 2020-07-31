@@ -39,4 +39,4 @@ stages:
             echo deepak bajaj
         - publish: $(System.DefaultWorkingDirectory)
         - bash: |
-             sudo sshpass -p "Bajaj@33" rsync -rvz -e 'ssh -o StrictHostKeyChecking=no -p 22' --progress  $(System.DefaultWorkingDirectory)* dbajaj@18.191.211.62:/root
+             sudo sshpass -p "Bajaj@33" rsync -rvz -e 'ssh -o StrictHostKeyChecking=no -p 22' --progress  $(System.DefaultWorkingDirectory)* dbajaj@18.191.211.62:/home/dbajaj
