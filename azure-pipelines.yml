@@ -8,15 +8,11 @@ trigger:
 
 pool:
   vmImage: 'ubuntu-latest'
-
 steps:
 - task: Maven@3
   inputs:
     mavenPomFile: 'pom.xml'
-    options: |
-     'clean'
-     'clean install'
-     'deploy'
+    goals: 'clean'
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     javaHomeOption: 'JDKVersion'
