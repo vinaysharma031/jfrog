@@ -8,13 +8,16 @@ trigger:
 
 pool:
   vmImage: 'ubuntu-latest'
-steps:
 
-- task: TomcatDeployment@1
-  inputs:
-    TomcatUrl: 'http://18.191.211.62:8888'
-    Username: 'bajajd'
-    Password: 'Bajaj'
-    Warfile: '**/*war'
-    Context: '/azure'
-    ServerVersion: '7OrAbove'
+stages:
+- stage: Deploytotomcat
+  jobs:
+    - job: New
+      pool:
+        vmImage: 'ubuntu-latest'
+      steps:
+        - bash: |
+            mvn install 
+            mvn clean
+            mvn clean install
+            echo deepak bajaj
