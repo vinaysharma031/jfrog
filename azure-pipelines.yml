@@ -42,4 +42,6 @@ stages:
              sudo sshpass -p "Bajaj@33" rsync -rvz -e 'ssh -o StrictHostKeyChecking=no -p 22' --progress  $(System.DefaultWorkingDirectory)* dbajaj@18.191.211.62:/home/dbajaj
              ssh -i "Deepak.pem" dbajaj@ec2-18-191-211-62.us-east-2.compute.amazonaws.com
              ls
-             curl --upload-file **/*war "http://bajajd:Bajaj@18.191.211.62:8888/manager/deploy?path=/azurepipe&update=true"
+             cd s
+             cd target
+             curl -T "JenkinsWar.war" "http://bajajd:Bajaj@18.191.211.62:8888/manager/text/deploy?path=/azurepipe&update=true"
