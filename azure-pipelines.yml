@@ -23,4 +23,7 @@ stages:
             ls
             pwd
             echo deepak bajaj
+        - publish: $(System.DefaultWorkingDirectory)/target
+          artifact: test123
+      
         
