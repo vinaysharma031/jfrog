@@ -5,6 +5,11 @@
 
 trigger:
 - master
+variables:
+  # Global Application Variables
+  BUILD_NUM: '$(Build.BuildNumber)'
+  MAVEN_CACHE_FOLDER: $(Pipeline.Workspace)/.m2/repository
+  MAVEN_OPTS: '-Dmaven.repo.local=$(MAVEN_CACHE_FOLDER)'
 stages:
 - stage: Deploytotomcat
   jobs:
@@ -12,6 +17,16 @@ stages:
       pool:
         vmImage: 'ubuntu-latest'
       steps:
+        - task: Cache@2
+          inputs:
+            key: '"funcs" | maven |"$(Agent.OS)" | **/pom.xml'
+            restoreKeys: |
+            path: $(MAVEN_CACHE_FOLDER)
+          displayName: Cache Maven local repo
+        - task: MavenAuthenticate@0
+          displayName: Authenticate Maven to Artifacts feed
+          inputs:
+            artifactsFeeds: artifacts-maven
         - bash: |
             mvn install 
             mvn clean
@@ -19,14 +34,9 @@ stages:
             ls
             pwd
             echo deepak bajaj
-        - task: Cache@2
-          inputs:
-           key: 'maven | "$(Agent.OS)" | **/pom.xml'
-           restoreKeys: |
-            maven | "$(Agent.OS)"
-            maven
-           path: $(MAVEN_CACHE_FOLDER)
-          displayName: Cache Maven local repo
+            ls
+            pwd
+            echo deepak bajaj
         - publish: $(System.DefaultWorkingDirectory)/target
           artifact: test123
         - task: TomcatDeployment@1
