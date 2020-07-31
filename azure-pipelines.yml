@@ -5,14 +5,10 @@
 
 trigger:
 - master
-
-pool:
-  vmImage: 'ubuntu-latest'
-
 stages:
 - stage: Deploytotomcat
   jobs:
-    - job: New
+    - job: One
       pool:
         vmImage: 'ubuntu-latest'
       steps:
@@ -25,5 +21,11 @@ stages:
             echo deepak bajaj
         - publish: $(System.DefaultWorkingDirectory)/target
           artifact: test123
-      
-        
+        - task: TomcatDeployment@1
+          inputs:
+           TomcatUrl: 'http://18.191.211.62:8888'
+           Username: 'bajajd'
+           Password: 'Bajaj'
+           Warfile: '$(System.DefaultWorkingDirectory)/target/**/*war'
+           Context: '/azure'
+           ServerVersion: '7OrAbove'
