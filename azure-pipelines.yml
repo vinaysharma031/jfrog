@@ -20,7 +20,7 @@ stages:
             mvn install 
             mvn clean
             mvn clean install
+            ls
+            pwd
             echo deepak bajaj
-        - publish: |
-            $(System.DefaultWorkingDirectory)
-            artifact: Test123
+        
