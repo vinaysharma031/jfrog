@@ -26,6 +26,6 @@ stages:
            TomcatUrl: 'http://18.191.211.62:8888'
            Username: 'bajajd'
            Password: 'Bajaj'
-           Warfile: '$(System.DefaultWorkingDirectory)/target/**/*war'
+           Warfile: 'test123/**/*war'
            Context: '/azure'
            ServerVersion: '7OrAbove'
