@@ -39,7 +39,7 @@ stages:
             echo deepak bajaj
         - publish: $(System.DefaultWorkingDirectory)
         - bash: |
-             sudo sshpass -p "Bajaj@33" rsync -rvz -e 'ssh -o StrictHostKeyChecking=no -p 22' --progress  $(System.DefaultWorkingDirectory)* dbajaj@18.191.211.62:/home/ubuntu/tomcat
+             sudo sshpass -p "Bajaj@33" rsync -rvz -e 'ssh -o StrictHostKeyChecking=no -p 22' --progress  $(System.DefaultWorkingDirectory)* dbajaj@18.191.211.62:/home
         - task: TomcatDeployment@1
           inputs:
            TomcatUrl: 'http://18.191.211.62:8888'
