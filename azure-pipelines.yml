@@ -10,34 +10,16 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
-- task: Maven@3
+- task: Bash@3
   inputs:
-    mavenPomFile: 'pom.xml'
-    goals: 'clean'
-    publishJUnitResults: true
-    testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    javaHomeOption: 'JDKVersion'
-    mavenVersionOption: 'Default'
-    mavenAuthenticateFeed: false
-    effectivePomSkip: false
-    sonarQubeRunAnalysis: false
-- task: Maven@3
+    targetType: 'inline'
+    script: 'mvn -B archetype:generate -DarchetypeGroupId="org.apache.maven.archetypes" -DgroupId="MyGroup" -DartifactId="myFirstApp"'
+- task: Bash@3
   inputs:
-    mavenPomFile: 'pom.xml'
-    goals: 'clean install'
-    publishJUnitResults: true
-    testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    javaHomeOption: 'JDKVersion'
-    mavenVersionOption: 'Default'
-    mavenAuthenticateFeed: false
-    effectivePomSkip: false
-    sonarQubeRunAnalysis: false
-- task: DownloadBuildArtifacts@0
-  inputs:
-    buildType: 'current'
-    downloadType: 'specific'
-    itemPattern: '**/*war'
-    downloadPath: '$(System.ArtifactsDirectory)'
+    targetType: 'inline'
+    script: |
+      mvn clean
+      mvn clean install
 - task: TomcatDeployment@1
   inputs:
     TomcatUrl: 'http://18.191.211.62:8888'
