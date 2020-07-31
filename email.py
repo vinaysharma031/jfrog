@@ -1,23 +1,66 @@
-# Import smtplib for the actual sending function
-import smtplib
+# Sending emails with attachments using Python  
 
-# Import the email modules we'll need
-from email.mime.text import MIMEText
+# libraries to be imported 
+import smtplib 
+from email.mime.multipart import MIMEMultipart 
+from email.mime.text import MIMEText 
+from email.mime.base import MIMEBase 
+from email import encoders 
 
-# Open a plain text file for reading.  For this example, assume that
-# the text file contains only ASCII characters.
-with open(textfile, 'rb') as fp:
-    # Create a text/plain message
-    msg = MIMEText(fp.read())
+fromaddr = "vanideep2020@gmail.com"
+toaddr = "alwindeep@icloud.com"
 
-# me == the sender's email address
-# you == the recipient's email address
-msg['Subject'] = 'The contents of %s' % textfile
-msg['From'] = me
-msg['To'] = you
+# MIMEMultipart 
+msg = MIMEMultipart() 
 
-# Send the message via our own SMTP server, but don't include the
-# envelope header.
-s = smtplib.SMTP('localhost')
-s.sendmail(me, [you], msg.as_string())
-s.quit()
+# senders email address 
+msg['From'] = fromaddr 
+
+# receivers email address 
+msg['To'] = toaddr 
+
+# the subject of mail
+msg['Subject'] = "Test"
+
+# the body of the mail 
+body = "Hello"
+
+# attaching the body with the msg 
+msg.attach(MIMEText(body, 'plain')) 
+
+# open the file to be sent
+# rb is a flag for readonly 
+filename = "file_name_with_extension"
+attachment = open("Path of the file", "rb") 
+
+# MIMEBase
+attac= MIMEBase('application', 'octet-stream') 
+
+# To change the payload into encoded form 
+attc.set_payload((attachment).read()) 
+
+# encode into base64 
+encoders.encode_base64(attc) 
+
+attc.add_header('Content-Disposition', "attachment; filename= %s" % filename) 
+
+# attach the instance 'p' to instance 'msg' 
+msg.attach(attc) 
+
+# creates SMTP session 
+email = smtplib.SMTP('smtp.gmail.com', 587) 
+
+# TLS for security 
+email.starttls() 
+
+# authentication 
+email.login(fromaddr, "fastpiratE@33") 
+
+# Converts the Multipart msg into a string 
+message = msg.as_string() 
+
+# sending the mail 
+email.sendmail(fromaddr, toaddr, message) 
+
+# terminating the session 
+s.quit() 
