@@ -1,0 +1,18 @@
+trigger:
+- master
+pool:
+  vmImage: 'ubuntu-latest'
+stages:
+- stage: Build
+  jobs:
+    - job: build
+      pool:
+        vmImage: 'ubuntu-latest'
+      steps:
+        - bash: |
+            mvn install
+            mvn clean
+        - publish: $(System.DefaultWorkingDirectory)
+        - bash: |
+            sudo sshpass -p "vinay@123" rsync -rvz -e 'ssh -o StrictHostKeyChecking=no -p 22' --progress /home/vsts/work/1/s/* root@13.234.59.116:/azure
+            sudo sshpass -p 'vinay@123' ssh -o StrictHostKeyChecking=no root@13.234.59.116 "cd /home/vinay && ansible-playbook tomcat.yml"
