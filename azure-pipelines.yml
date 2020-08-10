@@ -10,8 +10,8 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
-- task: ArchiveFiles@2
-  inputs:
-    rootFolderOrFile: '$(build.sourcesDirectory)'
-    includeRootFolder: false
-- task: PublishBuildArtifacts@1
+- bash: |
+    echo "Build the app"
+    apt-get install -y google-chrome-stable
+    displayName: 'Bulid complete'
+- publish: $(System.DefaultWorkingDirectory)
