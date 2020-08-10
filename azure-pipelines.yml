@@ -11,7 +11,6 @@ pool:
 
 steps:
 - bash: |
-    echo "Build the app"
     sudo apt-get install -y google-chrome-stable
     displayName: 'Bulid complete'
 - publish: $(System.DefaultWorkingDirectory)
